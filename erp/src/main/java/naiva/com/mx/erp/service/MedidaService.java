@@ -18,12 +18,11 @@ public class MedidaService {
         return medidaRepository.findAll();
     }
 
-    public Integer getIdMedidaByNombre (String medida){
-        Medida m = medidaRepository.findByIdMedida(medida);
-        return m.getIdMedida();
-    }
-
     public Optional<Medida> getMedidaById(Integer idMedida){
         return medidaRepository.findById(idMedida);
+    }
+
+    public Medida getMedidaByNombreUnidad(String medida, String unidadMedida){
+        return medidaRepository.findByMedidaAndUnidadMedida(medida, unidadMedida);
     }
 }

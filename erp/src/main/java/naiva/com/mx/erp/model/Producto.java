@@ -28,7 +28,9 @@ public class Producto {
     @Column(precision = 9, scale = 2)
     private BigDecimal precio;
 
+    
+
     @ManyToOne
     @JoinColumn(name = "idMedida", columnDefinition = "INT UNSIGNED")
-    private Integer idMedida;
+    private Medida medida;
 }
