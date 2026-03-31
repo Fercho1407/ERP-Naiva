@@ -19,11 +19,14 @@ public class ProductoService {
 
     public ProductoResponseDTO guardarProducto(ProductoCreateDTO productoCreateDto){
         Medida medida = medidaService.getMedidaByNombreUnidad(productoCreateDto.getMedida(), productoCreateDto.getUnidadMedida());
+
+        System.out.println("---->" + medida + "<-----");
         
         Producto producto = new Producto(
             null,
             productoCreateDto.getNombreProducto(),
             productoCreateDto.getPrecio(),
+            productoCreateDto.getValorMedida(),
             medida
         );
 

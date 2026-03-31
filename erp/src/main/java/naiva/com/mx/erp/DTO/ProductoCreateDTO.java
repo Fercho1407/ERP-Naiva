@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class ProductoCreateDTO {
     private String nombreProducto;
     private BigDecimal precio;
+    private String valorMedida;
     private String medida;
     private String unidadMedida;
 }
