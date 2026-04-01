@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import naiva.com.mx.erp.DTO.AlmacenCreateDTO;
-import naiva.com.mx.erp.DTO.AlmacenResponseDTO;
+import naiva.com.mx.erp.DTO.Creates.AlmacenCreateDTO;
+import naiva.com.mx.erp.DTO.Responses.AlmacenResponseDTO;
 import naiva.com.mx.erp.service.AlmacenService;
 
 import org.springframework.web.bind.annotation.PostMapping;

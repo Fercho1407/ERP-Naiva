@@ -3,9 +3,9 @@ package naiva.com.mx.erp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import naiva.com.mx.erp.DTO.AlmacenCreateDTO;
-import naiva.com.mx.erp.DTO.AlmacenResponseDTO;
-import naiva.com.mx.erp.DTO.DireccionCreateDTO;
+import naiva.com.mx.erp.DTO.Creates.AlmacenCreateDTO;
+import naiva.com.mx.erp.DTO.Creates.DireccionCreateDTO;
+import naiva.com.mx.erp.DTO.Responses.AlmacenResponseDTO;
 import naiva.com.mx.erp.model.Almacen;
 import naiva.com.mx.erp.model.Direccion;
 import naiva.com.mx.erp.repository.AlmacenRepository;

@@ -1,4 +1,4 @@
-package naiva.com.mx.erp.DTO;
+package naiva.com.mx.erp.DTO.Creates;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
