@@ -1,0 +1,19 @@
+rfc, curp, nss, fecha de ingreso, puesto, el sueldo depende del empleado - Datos de un empleado
+
+almacen de uniformes y de productos(herramientas y o materiales)
+para herramientas definer medidas, por ejmplo tamanio de los tornillos y en ropa saber de que talla cada prenda, pero, Que pasas con herramientas como esmeril que tiene una medida estandar?.
+
+Para ubicacion facil de los materiales o herramientas tener una ubicacion interna, por ejemplo numero de rack y de estante
+
+para cuando se asigne material o herramienta a una obra, darle salida del almacen y generar un reporte de entrada.
+
+Que informacion relevante se debe capturar de una obra? De inicio numero de obra, nombre del cliente, que mas?
+
+//Por el momento encargarse de la gestion del almacen.
+
+
+
+
+#El Sistema puede escalar demasiado en caso de que la empresa crezca, por lo que hay que evaluar el manejador de bases de datos, cual es el mas optimo para conjuntos de datos enormes, y que tan viable es manejarlo con bases de datos relacionales o es major una NoSQL y por que?
+
+//Para futuras actualizaciones hacer reportes de las actividades desarrolladas por cada empleado.
