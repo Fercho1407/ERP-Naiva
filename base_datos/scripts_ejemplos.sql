@@ -86,3 +86,80 @@ INSERT INTO producto (id_subcategoria, nombre, descripcion) VALUES
 (21, 'Pija Autoperforante', 'Tornillo para lámina o metal delgado'),
 (18, 'Memoria USB 3.0', 'Dispositivo de almacenamiento masivo portátil'),
 (23, 'Marcador Permanente', 'Marcador de tinta indeleble para rotulado');
+
+
+use mydb;
+-- 8. PRODUCTO_VARIANTE (Relacionando el catálogo con sus especificaciones)
+INSERT INTO producto_variante (codigo_barras, id_producto, id_marca, id_medida, id_material_trabajo, id_unidad_medida) VALUES 
+-- Cable THW Calibre 12 (Condumex, Cobre, por Metro)
+('750123456001', 1, 6, 14, 5, 2), 
+
+-- Tubo Conduit (Genérico, Acero al Carbono, por Pieza)
+('750123456002', 2, 1, 5, 3, 1), 
+
+-- Rotomartillo Industrial (Milwaukee, N/A medida, Acero HSS, por Pieza)
+('750123456003', 3, 4, 1, 2, 1), 
+
+-- Guante de Nitrilo (3M, Talla Grande, Nylon, por Par)
+('750123456004', 4, 5, 9, 10, 10), 
+
+-- Cable UTP Cat 6 (Cisco, N/A medida, Cobre, por Rollo)
+('750123456005', 5, 11, 1, 5, 8), 
+
+-- Taquete de Expansión (Truper, Medida 1/4, Acero al Carbono, por Caja)
+('750123456006', 6, 2, 2, 3, 9), 
+
+-- Pija Autoperforante (Truper, Medida 3/4, Cromo Vanadio, por Caja)
+('750123456007', 7, 2, 4, 9, 9), 
+
+-- Memoria USB (HP, Capacidad 16GB, Plástico, por Pieza)
+('750123456008', 8, 9, 12, 7, 1), 
+
+-- Marcador Permanente (Azor, N/A medida, Plástico, por Pieza)
+('750123456009', 9, 15, 1, 7, 1);
+
+
+INSERT INTO inventario_almacen VALUES
+(1, 10, 'Pasillo 5 rack 3 estante 1', 1),
+(1, 10, 'Pasillo 5 rack 3 estante 1', 2),
+(1, 10, 'Pasillo 5 rack 3 estante 1', 3),
+(1, 10, 'Pasillo 5 rack 3 estante 1', 4),
+
+(2, 10, 'Pasillo 5 rack 3 estante 1', 5),
+(2, 10, 'Pasillo 5 rack 3 estante 1', 3),
+(2, 10, 'Pasillo 5 rack 3 estante 1', 6),
+(2, 10, 'Pasillo 5 rack 3 estante 1', 7);
+
+INSERT INTO estado (estado) VALUES 
+('aguascalientes'),
+('baja california'),
+('baja california sur'),
+('campeche'),
+('chiapas'),
+('chihuahua'),
+('ciudad de mexico'),
+('coahuila'),
+('colima'),
+('durango'),
+('estado de mexico'),
+('guanajuato'),
+('guerrero'),
+('hidalgo'),
+('jalisco'),
+('michoacan'),
+('morelos'),
+('nayarit'),
+('nuevo leon'),
+('oaxaca'),
+('puebla'),
+('queretaro'),
+('quintana roo'),
+('san luis potosi'),
+('sinaloa'),
+('sonora'),
+('tabasco'),
+('tamaulipas'),
+('tlaxcala'),
+('veracruz'),
+('yucatan'),
+('zacatecas');
