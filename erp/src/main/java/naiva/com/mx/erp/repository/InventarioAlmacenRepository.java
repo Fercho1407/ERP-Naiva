@@ -7,9 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import naiva.com.mx.erp.DTO.Responses.InventarioAlmacenResponseDTO;
 import naiva.com.mx.erp.model.InventarioAlmacen;
-import naiva.com.mx.erp.model.InventarioAlmacenId;
 
-public interface InventarioAlmacenRepository extends JpaRepository<InventarioAlmacen, InventarioAlmacenId>{
+public interface InventarioAlmacenRepository extends JpaRepository<InventarioAlmacen, Integer>{
 
 
 
