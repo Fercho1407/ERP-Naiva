@@ -20,7 +20,7 @@ public interface InventarioAlmacenRepository extends JpaRepository<InventarioAlm
                     "JOIN pv.producto p "+
                     "JOIN p.subcategoria sub "+
                     "JOIN pv.medida m "+
-                    "JOIN pv.unidadMedida um"+
+                    "JOIN pv.unidadMedida um "+
                     "JOIN pv.marca ma "+
                     "WHERE ia.almacen.idAlmacen = :idAlmacen";
 
