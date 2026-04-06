@@ -1,5 +1,7 @@
 use mydb;
 
+drop database mydb;
+
 INSERT INTO estado (estado) VALUES 
 ('aguascalientes'),('baja california'),('baja california sur'),
 ('campeche'),('chiapas'),('chihuahua'),('ciudad de mexico'),
@@ -131,7 +133,7 @@ INSERT INTO producto_variante (codigo_barras, id_producto, id_marca, id_medida, 
 ('750123456009', 9, 15, 1, 7, 1);
 
 
-INSERT INTO inventario_almacen  VALUES
+INSERT INTO inventario_almacen(id_almacen, stock_actual, ubicacion_interna, id_producto_variante) VALUES
 (1, 10, 'Pasillo 5 rack 3 estante 1', 1),
 (1, 9, 'Pasillo 5 rack 3 estante 1', 2),
 (1, 1, 'Pasillo 5 rack 3 estante 1', 3),
