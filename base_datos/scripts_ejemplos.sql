@@ -1,5 +1,17 @@
 use mydb;
 
+INSERT INTO estado (estado) VALUES 
+('aguascalientes'),('baja california'),('baja california sur'),
+('campeche'),('chiapas'),('chihuahua'),('ciudad de mexico'),
+('coahuila'),('colima'),('durango'),('estado de mexico'),
+('guanajuato'),('guerrero'),
+('hidalgo'),('jalisco'),('michoacan'),('morelos'),
+('nayarit'),('nuevo leon'),('oaxaca'),('puebla'),
+('queretaro'),('quintana roo'),
+('san luis potosi'),('sinaloa'),('sonora'),('tabasco'),
+('tamaulipas'),('tlaxcala'),('veracruz'),('yucatan'),('zacatecas');
+
+
 -- 1. MATERIAL DE TRABAJO (Registros comunes)
 -- Útil para clasificar por composición química o resistencia.
 INSERT INTO material_trabajo (nombre) VALUES 
@@ -119,47 +131,12 @@ INSERT INTO producto_variante (codigo_barras, id_producto, id_marca, id_medida, 
 ('750123456009', 9, 15, 1, 7, 1);
 
 
-INSERT INTO inventario_almacen VALUES
+INSERT INTO inventario_almacen  VALUES
 (1, 10, 'Pasillo 5 rack 3 estante 1', 1),
-(1, 10, 'Pasillo 5 rack 3 estante 1', 2),
-(1, 10, 'Pasillo 5 rack 3 estante 1', 3),
-(1, 10, 'Pasillo 5 rack 3 estante 1', 4),
-
-(2, 10, 'Pasillo 5 rack 3 estante 1', 5),
+(1, 9, 'Pasillo 5 rack 3 estante 1', 2),
+(1, 1, 'Pasillo 5 rack 3 estante 1', 3),
+(1, 55, 'Pasillo 5 rack 3 estante 1', 4),
+(2, 22, 'Pasillo 5 rack 3 estante 1', 5),
 (2, 10, 'Pasillo 5 rack 3 estante 1', 3),
-(2, 10, 'Pasillo 5 rack 3 estante 1', 6),
-(2, 10, 'Pasillo 5 rack 3 estante 1', 7);
-
-INSERT INTO estado (estado) VALUES 
-('aguascalientes'),
-('baja california'),
-('baja california sur'),
-('campeche'),
-('chiapas'),
-('chihuahua'),
-('ciudad de mexico'),
-('coahuila'),
-('colima'),
-('durango'),
-('estado de mexico'),
-('guanajuato'),
-('guerrero'),
-('hidalgo'),
-('jalisco'),
-('michoacan'),
-('morelos'),
-('nayarit'),
-('nuevo leon'),
-('oaxaca'),
-('puebla'),
-('queretaro'),
-('quintana roo'),
-('san luis potosi'),
-('sinaloa'),
-('sonora'),
-('tabasco'),
-('tamaulipas'),
-('tlaxcala'),
-('veracruz'),
-('yucatan'),
-('zacatecas');
+(2, 36, 'Pasillo 5 rack 3 estante 1', 6),
+(2, 7, 'Pasillo 5 rack 3 estante 1', 7);
