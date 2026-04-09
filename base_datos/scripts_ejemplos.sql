@@ -132,6 +132,8 @@ INSERT INTO producto_variante (codigo_barras, id_producto, id_marca, id_medida, 
 -- Marcador Permanente (Azor, N/A medida, Plástico, por Pieza)
 ('750123456009', 9, 15, 1, 7, 1);
 
+-- Ingresar los inventarios manualmente desde el backen para poder guardar los siguientes regsitros
+
 
 INSERT INTO inventario_almacen(id_almacen, stock_actual, ubicacion_interna, id_producto_variante) VALUES
 (1, 10, 'Pasillo 5 rack 3 estante 1', 1),
