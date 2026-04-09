@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
 import naiva.com.mx.erp.DTO.Responses.InventarioAlmacenResponseDTO;
 import naiva.com.mx.erp.service.InventarioAlmacenService;
 
@@ -19,14 +20,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("naivaERP")
+@RequiredArgsConstructor
 public class InventarioAlmacenController {
-    @Autowired
-    private InventarioAlmacenService inventarioAlmacenService;
+    private final InventarioAlmacenService inventarioAlmacenService;
     
     @GetMapping("inventario-almacen/{idAlmacen}")
     public ResponseEntity<List<InventarioAlmacenResponseDTO>> getMethodName(@PathVariable("idAlmacen") Integer idAlmacen) {
         var inventarioAlmacen = inventarioAlmacenService.getProductosPorAlmacen(idAlmacen);
-        return new ResponseEntity<>(inventarioAlmacen, HttpStatus.FOUND);
+        return new ResponseEntity<>(inventarioAlmacen, HttpStatus.OK);
     }
     
 }
