@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("naivaERP")
+@RequestMapping("naivaERP/movimiento-inventario")
 @RequiredArgsConstructor
 public class MovimientoInventarioController {
     
     private final MovimientoInventarioService mInventarioService;
 
-    @PostMapping("/registro-movimiento")
+    @PostMapping("/entrada")
     public ResponseEntity<RegistroEntradaResponseDTO> registrarEntrada (@RequestBody RegistroEntradaDTO entrada) {
         RegistroEntradaResponseDTO registro = mInventarioService.registrarEntrada(entrada);
         return new ResponseEntity<>(registro, HttpStatus.CREATED);
