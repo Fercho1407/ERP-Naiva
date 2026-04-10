@@ -13,7 +13,7 @@ public interface InventarioAlmacenRepository extends JpaRepository<InventarioAlm
 
 
     String query = "SELECT new naiva.com.mx.erp.DTO.Responses.InventarioAlmacenResponseDTO"+
-                    "(pv.codigoBarras, p.nombre, sub.nombre, m.valor, um.nombre, ma.nombre, ia.stockActual, ia.ubicacionInterna) "+
+                    "(ia.idInventarioAlmacen, pv.codigoBarras, p.nombre, sub.nombre, m.valor, um.nombre, ma.nombre, ia.stockActual, ia.ubicacionInterna) "+
                     "FROM InventarioAlmacen ia "+
                     "JOIN ia.productoVariante pv "+
                     "JOIN pv.producto p "+

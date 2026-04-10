@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class InventarioAlmacenResponseDTO {
+    private Integer idInventarioAlmacen;
     private String codigoBarras;
     private String productoNombre;
     private String subcategoria;
