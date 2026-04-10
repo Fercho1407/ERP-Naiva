@@ -13,6 +13,7 @@ import naiva.com.mx.erp.DTO.movimientosInventario.RegistroEntradaDTO;
 import naiva.com.mx.erp.DTO.movimientosInventario.RegistroEntradaResponseDTO;
 import naiva.com.mx.erp.DTO.movimientosInventario.RegistroTraspasoDTO;
 import naiva.com.mx.erp.DTO.movimientosInventario.RegistroTraspasoResponseDTO;
+import naiva.com.mx.erp.exception.NegocioException;
 import naiva.com.mx.erp.model.Almacen;
 import naiva.com.mx.erp.model.InventarioAlmacen;
 import naiva.com.mx.erp.model.MovimientoInventario;
@@ -96,7 +97,7 @@ public class MovimientoInventarioService {
 
         //Validacion de que el stock de traspaso no sea al mayor al que hay en existencia
         if (stockTraspaso > stockActual){
-            throw new RuntimeException("No se puede traspasar una cantidad mayor a la existente");
+            throw new NegocioException("No se puede traspasar una cantidad mayor a la existente");
         }
 
         //Establecer el nuevo stock en el almacen de origen

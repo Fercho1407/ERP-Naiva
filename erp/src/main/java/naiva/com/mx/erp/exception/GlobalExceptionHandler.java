@@ -1,0 +1,17 @@
+package naiva.com.mx.erp.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<ErrorResponse> handleNegocioException(NegocioException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getMessage());
+        // Usamos 400 (Bad Request) porque es un error de validación del cliente
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+}
