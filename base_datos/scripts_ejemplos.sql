@@ -1,6 +1,13 @@
 use mydb;
 
-drop database mydb;
+-- Creacion de indices
+-- Ejecutar justo despues de la creacion de la base de datos
+
+CREATE INDEX idx_producto_almacen ON inventario_almacen (id_producto_variante, id_almacen);
+
+
+-- Solo son Datos de prueba
+-- No utilizarlos en produccion
 
 INSERT INTO estado (estado) VALUES 
 ('aguascalientes'),('baja california'),('baja california sur'),

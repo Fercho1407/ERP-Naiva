@@ -1,9 +1,11 @@
 package naiva.com.mx.erp.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import naiva.com.mx.erp.DTO.Responses.InventarioAlmacenResponseDTO;
 import naiva.com.mx.erp.model.InventarioAlmacen;
@@ -22,7 +24,15 @@ public interface InventarioAlmacenRepository extends JpaRepository<InventarioAlm
                     "JOIN pv.unidadMedida um "+
                     "JOIN pv.marca ma "+
                     "WHERE ia.almacen.idAlmacen = :idAlmacen";
-
     @Query(query)
     List<InventarioAlmacenResponseDTO> getInventarioByIdAlmacen(Integer idAlmacen);
+
+    //Verifica si existe el procuto a traspasar en el nuevo almacen y si existe retorna el id del registro donde vive 
+    @Query("SELECT i.id FROM InventarioAlmacen i " +
+           "WHERE i.productoVariante.id = :idVariante " +
+           "AND i.almacen.id = :idAlmacenDestino")
+    Optional<Long> findIdByProductoAndAlmacen(
+        @Param("idVariante") Integer idVariante, 
+        @Param("idAlmacenDestino") Integer idAlmacenDestino
+    );
 }

@@ -7,9 +7,7 @@ public enum Tipomovimiento {
     ENTRADA("entrada a almacen"),
     SALIDA("Salida del almacen"),
     AJUSTE("Ajuste de stock"),
-    TRASPASO_ENTRADA("Llegada de otro almacen"),
-    TRASPASO_SALIDA("Salida hacia otro almacen");
-
+    TRASPASO_ALMACEN("Movimiento entre almacenes");
     private final String tipoMovimiento;
 
     Tipomovimiento(String tipoMovimiento){

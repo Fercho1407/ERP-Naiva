@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import naiva.com.mx.erp.DTO.movimientosInventario.RegistroEntradaDTO;
 import naiva.com.mx.erp.DTO.movimientosInventario.RegistroEntradaResponseDTO;
+import naiva.com.mx.erp.DTO.movimientosInventario.RegistroTraspasoDTO;
+import naiva.com.mx.erp.DTO.movimientosInventario.RegistroTraspasoResponseDTO;
 import naiva.com.mx.erp.service.MovimientoInventarioService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +28,12 @@ public class MovimientoInventarioController {
     @PostMapping("/entrada")
     public ResponseEntity<RegistroEntradaResponseDTO> registrarEntrada (@RequestBody RegistroEntradaDTO entrada) {
         RegistroEntradaResponseDTO registro = mInventarioService.registrarEntrada(entrada);
+        return new ResponseEntity<>(registro, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/traspaso")
+    public ResponseEntity<RegistroTraspasoResponseDTO> registrarTraspaso (@Valid @RequestBody RegistroTraspasoDTO traspaso) {
+        RegistroTraspasoResponseDTO registro = mInventarioService.registrarTraspasoInventario(traspaso);
         return new ResponseEntity<>(registro, HttpStatus.CREATED);
     }
 }
