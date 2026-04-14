@@ -1,0 +1,5 @@
+2026-04-13T21:53:05.991-06:00  INFO 492736 --- [erp] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-13T21:53:05.994-06:00  INFO 492736 --- [erp] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-04-13T21:53:05.996-06:00  INFO 492736 --- [erp] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-13T21:53:05.997-06:00  INFO 492736 --- [erp] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-04-13T21:53:06.003-06:00  INFO 492736 --- [erp] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
