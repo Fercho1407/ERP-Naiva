@@ -66,6 +66,16 @@ public class MovimientoInventarioService {
         try {
             InventarioAlmacen inventarioAlmacenOrigen = inventarioAlmacenRepository.findById(traspasoInventario.getIdProductoInventarioAlmacen())
                 .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró el registro de inventario solicitado."));
+            
+            //Verifica que el inventario seleccionado pertenezca al almacen de origen
+            if(inventarioAlmacenOrigen.getAlmacen().getIdAlmacen() != traspasoInventario.getIdAlmacenOrigen()){
+                throw new NegocioException("Inconsistencia entre los almacenes seleccionados");
+            }
+
+            //verifica que el almacen de origen y el de detino no sean el mismo
+            if(inventarioAlmacenOrigen.getAlmacen().getIdAlmacen() == traspasoInventario.getIdAlmacenDestino()){
+                throw new NegocioException("No se pueden hacer traspasos hacia el mismo almacen, si lo rquieres, solo actualiza la ubicacion interna");
+            }
 
             Optional<Integer> idInventarioAlmacenDestino = inventarioAlmacenRepository.findIdByProductoAndAlmacen(
                 inventarioAlmacenOrigen.getProductoVariante().getIdProductoVariante(), 
@@ -74,10 +84,8 @@ public class MovimientoInventarioService {
 
             //El producto no existe en el inventario destino
             if(idInventarioAlmacenDestino.isEmpty()){
-                System.out.println("-----> "+ idInventarioAlmacenDestino);
                 return guardarProductoEnAlmacenDestino(inventarioAlmacenOrigen, traspasoInventario);
             }else{
-                System.out.println("-----> "+ idInventarioAlmacenDestino.get());
                 return traspasoProducto(inventarioAlmacenOrigen, traspasoInventario, idInventarioAlmacenDestino.get());
             }
         } catch (RuntimeException e) {
