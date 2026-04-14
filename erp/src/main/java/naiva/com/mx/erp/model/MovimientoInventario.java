@@ -30,6 +30,7 @@ public class MovimientoInventario {
     private String autorizacion;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_movimiento")
     private Tipomovimiento tipomovimiento;
 
     @Column(name = "cantidad")

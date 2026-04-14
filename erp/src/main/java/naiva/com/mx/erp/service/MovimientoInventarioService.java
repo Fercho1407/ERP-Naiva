@@ -64,15 +64,22 @@ public class MovimientoInventarioService {
     @Transactional
     public RegistroTraspasoResponseDTO registrarTraspasoInventario(RegistroTraspasoDTO traspasoInventario){
         try {
-            Optional<Long> idInventarioAlmacenDestino = inventarioAlmacenRepository.findIdByProductoAndAlmacen(
-                traspasoInventario.getIdProductoInventarioAlmacen(), 
+            InventarioAlmacen inventarioAlmacenOrigen = inventarioAlmacenRepository.findById(traspasoInventario.getIdProductoInventarioAlmacen())
+                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró el registro de inventario solicitado."));
+
+            Optional<Integer> idInventarioAlmacenDestino = inventarioAlmacenRepository.findIdByProductoAndAlmacen(
+                inventarioAlmacenOrigen.getProductoVariante().getIdProductoVariante(), 
                 traspasoInventario.getIdAlmacenDestino()
             );
 
             //El producto no existe en el inventario destino
-            //if(idInventarioAlmacenDestino.isEmpty()){
-                return guardarProductoEnAlmacenDestino(traspasoInventario);
-            //}
+            if(idInventarioAlmacenDestino.isEmpty()){
+                System.out.println("-----> "+ idInventarioAlmacenDestino);
+                return guardarProductoEnAlmacenDestino(inventarioAlmacenOrigen, traspasoInventario);
+            }else{
+                System.out.println("-----> "+ idInventarioAlmacenDestino.get());
+                return traspasoProducto(inventarioAlmacenOrigen, traspasoInventario, idInventarioAlmacenDestino.get());
+            }
         } catch (RuntimeException e) {
             // Aquí puedes loguear el error antes de que se propague
             log.error("Error en el traspaso: " + e.getMessage());
@@ -84,11 +91,60 @@ public class MovimientoInventarioService {
 
     }
 
-
-    private RegistroTraspasoResponseDTO guardarProductoEnAlmacenDestino(RegistroTraspasoDTO traspasoInventario){
-        InventarioAlmacen inventarioAlmacenOrigen = inventarioAlmacenRepository.findById(traspasoInventario.getIdProductoInventarioAlmacen())
+    private RegistroTraspasoResponseDTO traspasoProducto(InventarioAlmacen inventarioAlmacenOrigen, RegistroTraspasoDTO traspasoInventario, Integer idInventarioAlmacenDestino){
+        InventarioAlmacen inventarioAlmacenDestino = inventarioAlmacenRepository.findById(idInventarioAlmacenDestino)
                                                 .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró el registro de inventario solicitado."));
 
+        Almacen almacenOrigen = almacenRepository.findById(traspasoInventario.getIdAlmacenOrigen())
+                                                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontro el almacen de origen."));
+
+        Almacen almacenDestino = almacenRepository.findById(traspasoInventario.getIdAlmacenDestino())
+                                                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontro el almacen de destino."));
+
+        Integer stockActualOrigen = inventarioAlmacenOrigen.getStockActual();
+        Integer stockActualDestino = inventarioAlmacenDestino.getStockActual();
+        Integer stockTraspaso = traspasoInventario.getStockTraspaso();
+
+        //Validacion de que el stock de traspaso no sea al mayor al que hay en existencia
+        if (stockTraspaso > stockActualOrigen){
+            throw new NegocioException("No se puede traspasar una cantidad mayor al stock disponible.");
+        }
+
+        //Establecer el nuevo stock en el almacen de origen
+        Integer stockActualizadoOrigen = stockActualOrigen - stockTraspaso;
+        inventarioAlmacenOrigen.setStockActual(stockActualizadoOrigen);
+
+        //Establecer el nuevo stock en el almacen destino
+        Integer stockActualizadoDestino = stockActualDestino + stockTraspaso;
+        inventarioAlmacenDestino.setStockActual(stockActualizadoDestino);
+
+        //Crear el nuevo registro del movimiento
+        String observaciones = "Se traspaso " + stockActualOrigen + " de " + 
+                                inventarioAlmacenOrigen.getProductoVariante().getProducto().getNombre() + 
+                                " desde el almacen " +
+                                almacenOrigen.getNombre() + " hacia el almacen " + almacenDestino.getNombre();
+
+        MovimientoInventario movimientoInventario = new MovimientoInventario(
+            null,
+            traspasoInventario.getAutotizacion(),
+            Tipomovimiento.TRASPASO_ALMACEN,
+            stockTraspaso,
+            traspasoInventario.getCostoTranslado(),
+            horaCDMX(),
+            observaciones,
+            inventarioAlmacenOrigen
+        );
+
+        //Actualizar la informacion en la base de datos
+        inventarioAlmacenRepository.save(inventarioAlmacenOrigen);
+        inventarioAlmacenRepository.save(inventarioAlmacenDestino);
+        movimientoInventarioRepository.save(movimientoInventario);
+        
+
+        return new RegistroTraspasoResponseDTO(stockActualOrigen, stockActualDestino);
+    }
+
+    private RegistroTraspasoResponseDTO guardarProductoEnAlmacenDestino(InventarioAlmacen inventarioAlmacenOrigen, RegistroTraspasoDTO traspasoInventario){
         Almacen almacenOrigen = almacenRepository.findById(traspasoInventario.getIdAlmacenOrigen())
                                                 .orElseThrow(() -> new RecursoNoEncontradoException("No se encontro el almacen de origen."));
 

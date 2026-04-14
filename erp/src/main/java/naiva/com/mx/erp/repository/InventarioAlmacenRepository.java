@@ -31,7 +31,7 @@ public interface InventarioAlmacenRepository extends JpaRepository<InventarioAlm
     @Query("SELECT i.id FROM InventarioAlmacen i " +
            "WHERE i.productoVariante.id = :idVariante " +
            "AND i.almacen.id = :idAlmacenDestino")
-    Optional<Long> findIdByProductoAndAlmacen(
+    Optional<Integer> findIdByProductoAndAlmacen(
         @Param("idVariante") Integer idVariante, 
         @Param("idAlmacenDestino") Integer idAlmacenDestino
     );
