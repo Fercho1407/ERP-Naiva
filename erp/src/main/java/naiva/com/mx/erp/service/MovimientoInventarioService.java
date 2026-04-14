@@ -14,6 +14,7 @@ import naiva.com.mx.erp.DTO.movimientosInventario.RegistroEntradaResponseDTO;
 import naiva.com.mx.erp.DTO.movimientosInventario.RegistroTraspasoDTO;
 import naiva.com.mx.erp.DTO.movimientosInventario.RegistroTraspasoResponseDTO;
 import naiva.com.mx.erp.exception.NegocioException;
+import naiva.com.mx.erp.exception.RecursoNoEncontradoException;
 import naiva.com.mx.erp.model.Almacen;
 import naiva.com.mx.erp.model.InventarioAlmacen;
 import naiva.com.mx.erp.model.MovimientoInventario;
@@ -79,7 +80,6 @@ public class MovimientoInventarioService {
         }
     }
 
-    @Transactional
     public void registrarSalidaInventario(){
 
     }
@@ -87,17 +87,17 @@ public class MovimientoInventarioService {
 
     private RegistroTraspasoResponseDTO guardarProductoEnAlmacenDestino(RegistroTraspasoDTO traspasoInventario){
         InventarioAlmacen inventarioAlmacenOrigen = inventarioAlmacenRepository.findById(traspasoInventario.getIdProductoInventarioAlmacen())
-                                                .orElseThrow(() -> new RuntimeException("Registro de inventario  no encontrado en el inventario"));
+                                                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró el registro de inventario solicitado."));
 
         Almacen almacenOrigen = almacenRepository.findById(traspasoInventario.getIdAlmacenOrigen())
-                                                .orElseThrow(() -> new RuntimeException("No se encontro el almacen de origen"));
+                                                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontro el almacen de origen."));
 
         Integer stockActual = inventarioAlmacenOrigen.getStockActual();
         Integer stockTraspaso = traspasoInventario.getStockTraspaso();
 
         //Validacion de que el stock de traspaso no sea al mayor al que hay en existencia
         if (stockTraspaso > stockActual){
-            throw new NegocioException("No se puede traspasar una cantidad mayor a la existente");
+            throw new NegocioException("No se puede traspasar una cantidad mayor al stock disponible.");
         }
 
         //Establecer el nuevo stock en el almacen de origen
@@ -106,10 +106,10 @@ public class MovimientoInventarioService {
         
         //Preparacion del nuevo registro en el almacen destino
         ProductoVariante productoVariante = productoVarianteRepository.findById(inventarioAlmacenOrigen.getProductoVariante().getIdProductoVariante())
-                                                .orElseThrow(() -> new RuntimeException("Producto no encontrado en el inventario"));
+                                                .orElseThrow(() -> new RecursoNoEncontradoException("Producto no encontrado en el inventario"));
 
         Almacen almacenDestino = almacenRepository.findById(traspasoInventario.getIdAlmacenDestino())
-                                    .orElseThrow(() -> new RuntimeException("No se encontro el almacen de destino"));
+                                    .orElseThrow(() -> new RecursoNoEncontradoException("No se encontro el almacen de destino"));
 
         InventarioAlmacen inventarioAlmacenDestino = new InventarioAlmacen(
             null,
@@ -137,14 +137,12 @@ public class MovimientoInventarioService {
 
         //Actualizar el stock de origen en la base de datos
         inventarioAlmacenRepository.save(inventarioAlmacenOrigen);
-
         //Guardar el nuevo registro en la base de datos
         inventarioAlmacenRepository.save(inventarioAlmacenDestino);
-
         //Guardar el registro del movimiento
         movimientoInventarioRepository.save(movimientoInventario);
 
-        return new RegistroTraspasoResponseDTO(stockActualizadoOrigen, stockTraspaso );
+        return new RegistroTraspasoResponseDTO(stockActualizadoOrigen, stockTraspaso);
     }
 
     /**
