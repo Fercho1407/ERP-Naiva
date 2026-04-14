@@ -1,5 +1,6 @@
 package naiva.com.mx.erp.service;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import naiva.com.mx.erp.DTO.movimientosInventario.RegistroEntradaDTO;
 import naiva.com.mx.erp.DTO.movimientosInventario.RegistroEntradaResponseDTO;
+import naiva.com.mx.erp.DTO.movimientosInventario.RegistroSalidaDTO;
+import naiva.com.mx.erp.DTO.movimientosInventario.RegistroSalidaResponseDTO;
 import naiva.com.mx.erp.DTO.movimientosInventario.RegistroTraspasoDTO;
 import naiva.com.mx.erp.DTO.movimientosInventario.RegistroTraspasoResponseDTO;
 import naiva.com.mx.erp.exception.NegocioException;
@@ -95,8 +98,36 @@ public class MovimientoInventarioService {
         }
     }
 
-    public void registrarSalidaInventario(){
+    @Transactional
+    public RegistroSalidaResponseDTO registrarSalida(RegistroSalidaDTO registroSalida){
+        InventarioAlmacen iventarioAlmacenSalida = inventarioAlmacenRepository.findById(registroSalida.getIdProductoInventarioAlmacen())
+            .orElseThrow(() -> new RecursoNoEncontradoException("No se encontro registro en el almacen"));
+        
+        Integer stockActual = iventarioAlmacenSalida.getStockActual();
+        Integer stockSalida = registroSalida.getStockSalida();
 
+        if(stockSalida > stockActual) throw new NegocioException("No se puede sacar mas stock del existente");
+
+        Integer stockActualizado = stockActual - stockSalida;
+        iventarioAlmacenSalida.setStockActual(stockActualizado);
+
+        BigDecimal costoTotalVenta = registroSalida.getCostoUnitarioVenta().multiply(BigDecimal.valueOf(registroSalida.getStockSalida()));
+
+        MovimientoInventario movimientoSalida = new MovimientoInventario(
+            null,
+            registroSalida.getAutorizacion(),
+            Tipomovimiento.SALIDA,
+            registroSalida.getStockSalida(),
+            costoTotalVenta,
+            horaCDMX(),
+            registroSalida.getObservaciones(),
+            iventarioAlmacenSalida
+        );
+
+        inventarioAlmacenRepository.save(iventarioAlmacenSalida);
+        movimientoInventarioRepository.save(movimientoSalida);
+
+        return new RegistroSalidaResponseDTO(stockActualizado, costoTotalVenta);
     }
 
     private RegistroTraspasoResponseDTO traspasoProducto(InventarioAlmacen inventarioAlmacenOrigen, RegistroTraspasoDTO traspasoInventario, Integer idInventarioAlmacenDestino){
