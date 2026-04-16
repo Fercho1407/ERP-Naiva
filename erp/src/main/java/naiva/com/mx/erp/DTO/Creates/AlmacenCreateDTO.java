@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 public class AlmacenCreateDTO {
     private String nombreAlmacen;
     private String calle;
-    private String numero_exterior;
-    private String codigo_postal;
+    private String numeroExterior;
+    private String codigoPostal;
     private String localidad;
     private String colonia;
-    private String nombre_estado;
+    private String nombreEstado;
 }
