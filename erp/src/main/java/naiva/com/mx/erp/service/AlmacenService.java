@@ -30,11 +30,11 @@ public class AlmacenService {
          */
         DireccionCreateDTO direccionDTO = new DireccionCreateDTO(
             almacenCreateDTO.getCalle(),
-            almacenCreateDTO.getNumero_exterior(),
-            almacenCreateDTO.getCodigo_postal(),
+            almacenCreateDTO.getNumeroExterior(),
+            almacenCreateDTO.getCodigoPostal(),
             almacenCreateDTO.getLocalidad(),
             almacenCreateDTO.getColonia(),
-            almacenCreateDTO.getNombre_estado()
+            almacenCreateDTO.getNombreEstado()
         );
 
         /**
