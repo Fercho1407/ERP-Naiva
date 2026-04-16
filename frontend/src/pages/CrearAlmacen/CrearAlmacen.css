@@ -1,0 +1,59 @@
+.crear-almacen {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.crear-almacen__header {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-success) 100%);
+  color: var(--color-white);
+  padding: 24px;
+  border-radius: var(--top-radius);
+  box-shadow: var(--shadow-card);
+}
+
+.crear-almacen__title {
+  font-size: 1.7rem;
+  margin-bottom: 8px;
+}
+
+.crear-almacen__subtitle {
+  font-size: 0.98rem;
+  opacity: 0.95;
+}
+
+.crear-almacen__form {
+  background-color: var(--color-white);
+  border-radius: var(--top-radius);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  border-top: 6px solid var(--color-warning);
+}
+
+.crear-almacen__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.crear-almacen__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.crear-almacen__button {
+  border: none;
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.crear-almacen__button:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}

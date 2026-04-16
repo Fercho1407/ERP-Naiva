@@ -1,0 +1,21 @@
+:root {
+  --color-primary: #003d6f;
+  --color-primary-light: #0058b5;
+  --color-success: #00984a;
+  --color-success-light: #69bf53;
+  --color-warning: #eacc4d;
+  --color-accent: #ff9c21;
+
+  --color-black: #000000;
+  --color-gray-dark: #7e7f74;
+  --color-gray-light: #d7d1c5;
+  --color-gray-lighter: #eae7e0;
+  --color-white: #ffffff;
+
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 84px;
+  --top-radius: 14px;
+  --transition-base: 0.25s ease;
+
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
